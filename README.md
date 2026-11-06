@@ -1,23 +1,20 @@
 # DAA Assignment 4 — Edit Distance and String Search
 
-GitHub: <ВСТАВЬТЕ_ССЫЛКУ_НА_РЕПОЗИТОРИЙ> (branch `main`, tag `v1.0`)
+## Project layout
+- `src/main/java/daa` — Edit Distance (`EditDistanceRecursive`, `EditDistanceTable`, `EditDistanceTwoRows`), Search (`NaiveSearch`, `KmpSearch`), `Generator` (seed fixed), `Experiment`.
+- `src/test/java/daa` — JUnit 5 тесты.
+- `results/results.csv`, `results/plots/*.png`, `REPORT.pdf`.
 
-## Что внутри
-- `src/main/java/daa` — Edit Distance (`EditDistanceRecursive`, `EditDistanceTable`, `EditDistanceTwoRows`), поиск (`NaiveSearch`, `KmpSearch`), `Generator` (seed фиксирован), `Experiment`.
-- `src/test/java/daa` — JUnit 5 тесты (эталонные значения, пустые строки, кросс-проверки на 100 случайных входах).
-- `results/results.csv`, `results/plots/*.png`, `REPORT.md`.
-
-## Сборка и тесты (нужны Java 17+ и Maven)
-```
-mvn test
-```
-
-## Запуск эксперимента и графиков
-```
-mvn compile exec:java        # пишет results/results.csv (около минуты)
-python3 scripts/plots.py     # нужны pandas и matplotlib; пишет results/plots/*.png
-```
-Одна и та же команда даёт одни и те же счётчики (seed = 42 + n); время, естественно, чуть отличается.
-
-## Использование ИИ
-Код, тесты, скрипт графиков и черновик отчёта подготовлены с помощью ИИ-ассистента (Claude). Эксперимент запускался реально, числа в отчёте взяты из `results/results.csv`. (Отредактируйте этот пункт под себя: опишите, что именно вы проверили и поняли сами.)
+## Run the Benchmark
+Runs the automated benchmark for all five algorithm implementations (EditDistanceRecursive, EditDistanceTable, EditDistanceTwoRows, NaiveSearch, and KmpSearch) across different input types (random, similar, disjoint, worst).
+All datasets are generated deterministically using new Random(SEED) (SEED = 42) to guarantee identical operation counters across executions. Benchmark results are written to results/results.csv containing timing (time_ms), operation counts (ops/comparisons), and allocated memory cells (mem_cells)
+## Design Highlights
+Abstract Base Classes: EditDistance and StringSearch encapsulate metric collection (ops, memCells, comparisons) and ensure standardized execution contracts.   
+Edit Distance Implementations:EditDistanceRecursive: Pure recursive brute-force reference implementation ($O(3^{\min(n,m)})$ time complexity).   
+EditDistanceTable: Full 2D dynamic programming grid maintaining $(n+1) \times (m+1)$ memory cells for full matrix visualization.   
+EditDistanceTwoRows: Space-optimized DP reducing auxiliary memory from $O(n \cdot m)$ to $O(m)$ by swapping only two rows (prev and cur).   
+String Search Implementations:NaiveSearch: Standard brute-force window sliding character comparison.   
+KmpSearch: Linear-time Knuth-Morris-Pratt algorithm utilizing a precomputed Longest Prefix Suffix (lps) array to eliminate redundant text pointer backtracks.   
+Exact Operational Metrics:ops: Tracks exact dynamic programming table cell computations.   
+memCells: Counts total integer memory allocations in DP state tables.   
+comparisons: Counts exact character comparisons performed during string matching and LPS preprocessing.
