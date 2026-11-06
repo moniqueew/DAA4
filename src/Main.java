@@ -4,7 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class Experiment {
+public class Main {
     static final long SEED = 42;
     static final int PATTERN_LEN = 50;
 
