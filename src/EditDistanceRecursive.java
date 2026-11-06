@@ -1,10 +1,3 @@
-/**
- * Версия A: рекурсия без памяти.
- * Состояние:  d(i, j) = расстояние между первыми i символами a и первыми j символами b.
- * Переход:    если a[i-1]==b[j-1]: d(i-1, j-1);
- *             иначе 1 + min(d(i-1, j) [удаление], d(i, j-1) [вставка], d(i-1, j-1) [замена]).
- * База:       d(0, j) = j, d(i, 0) = i.
- */
 public class EditDistanceRecursive extends EditDistance {
     @Override
     public String name() {
