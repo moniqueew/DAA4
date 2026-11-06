@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/** Общий интерфейс поиска: все вхождения, по возрастанию, с перекрытиями. */
 public abstract class StringSearch {
-    /** Число сравнений символов. */
     public long comparisons;
 
     public abstract String name();
