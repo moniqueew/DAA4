@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/** Naive: пробуем каждую стартовую позицию и сравниваем посимвольно. */
 public class NaiveSearch extends StringSearch {
     @Override
     public String name() {
