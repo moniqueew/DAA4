@@ -1,6 +1,5 @@
 import java.util.Random;
 
-/** Свой генератор данных с фиксированным seed: одна и та же команда даёт те же числа. */
 public class Generator {
     private static final String LETTERS = "ACGT";
 
@@ -10,7 +9,6 @@ public class Generator {
         return sb.toString();
     }
 
-    /** Копия s, где примерно rate символов заменено на случайные. */
     public static String mutate(Random r, String s, double rate) {
         StringBuilder sb = new StringBuilder(s);
         for (int i = 0; i < sb.length(); i++) {
@@ -23,7 +21,6 @@ public class Generator {
         return String.valueOf(c).repeat(n);
     }
 
-    /** Пары строк для Edit Distance. */
     public static String[] editPair(String type, int n, long seed) {
         Random r = new Random(seed);
         switch (type) {
@@ -40,7 +37,6 @@ public class Generator {
         }
     }
 
-    /** Пары (текст, паттерн) для поиска. */
     public static String[] searchPair(String type, int n, int m, long seed) {
         Random r = new Random(seed);
         switch (type) {

@@ -1,14 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/** KMP: сначала массив LPS, потом поиск, где индекс в тексте только растёт. */
 public class KmpSearch extends StringSearch {
     @Override
     public String name() {
         return "kmp";
     }
 
-    /** lps[i] = длина самого длинного собственного префикса p[0..i], который также его суффикс. */
     public int[] lps(String p) {
         int m = p.length();
         int[] lps = new int[m];
@@ -34,7 +32,7 @@ public class KmpSearch extends StringSearch {
         List<Integer> res = new ArrayList<>();
         int n = t.length(), m = p.length();
         int[] lps = lps(p);
-        int i = 0, j = 0; // i в тексте никогда не уменьшается
+        int i = 0, j = 0;
         while (i < n) {
             comparisons++;
             if (t.charAt(i) == p.charAt(j)) {

@@ -4,7 +4,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-/** Запуск: mvn compile exec:java  -> results/results.csv (одна строка = один запуск). */
 public class Experiment {
     static final long SEED = 42;
     static final int PATTERN_LEN = 50;
@@ -15,16 +14,13 @@ public class Experiment {
         try (PrintWriter w = new PrintWriter(Files.newBufferedWriter(out))) {
             w.println("algorithm,input,n,run,time_ms,ops,mem_cells,result");
 
-            // --- Edit Distance: рекурсия (маленькие n) ---
             EditDistance rec = new EditDistanceRecursive();
             for (String type : List.of("random", "similar", "disjoint")) {
                 for (int n : new int[]{4, 6, 8, 10, 12}) {
                     runEdit(w, rec, type, n, 3);
                 }
             }
-            // Добавлено после карточки: один больший размер только для худшего входа
             runEdit(w, rec, "disjoint", 14, 3);
-            // --- Edit Distance: таблица и две строки ---
             EditDistance[] dp = {new EditDistanceTable(), new EditDistanceTwoRows()};
             for (EditDistance ed : dp) {
                 for (String type : List.of("random", "similar", "disjoint")) {
@@ -33,7 +29,6 @@ public class Experiment {
                     }
                 }
             }
-            // --- Поиск строк ---
             StringSearch[] algs = {new NaiveSearch(), new KmpSearch()};
             for (StringSearch s : algs) {
                 for (String type : List.of("random", "worst")) {
@@ -48,7 +43,7 @@ public class Experiment {
 
     static void runEdit(PrintWriter w, EditDistance ed, String type, int n, int runs) {
         String[] p = Generator.editPair(type, n, SEED + n);
-        ed.distance(p[0], p[1]); // прогрев JIT, не записывается
+        ed.distance(p[0], p[1]);
         for (int run = 1; run <= runs; run++) {
             long t0 = System.nanoTime();
             int d = ed.distance(p[0], p[1]);
@@ -61,7 +56,7 @@ public class Experiment {
 
     static void runSearch(PrintWriter w, StringSearch s, String type, int n, int runs) {
         String[] p = Generator.searchPair(type, n, PATTERN_LEN, SEED + n);
-        s.search(p[0], p[1]); // прогрев
+        s.search(p[0], p[1]);
         for (int run = 1; run <= runs; run++) {
             long t0 = System.nanoTime();
             int found = s.search(p[0], p[1]).size();

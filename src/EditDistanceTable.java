@@ -1,9 +1,3 @@
-/**
- * Версия B: таблица (n+1) x (m+1) снизу вверх, время O(n*m), память O(n*m).
- * Состояние:  d[i][j] = расстояние между a[0..i) и b[0..j).
- * Переход:    d[i][j] = min(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + (a[i-1]==b[j-1] ? 0 : 1)).
- * База:       d[i][0] = i, d[0][j] = j.
- */
 public class EditDistanceTable extends EditDistance {
     @Override
     public String name() {
