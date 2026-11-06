@@ -1,9 +1,3 @@
-/**
- * Версия C: те же вычисления, но хранятся только две строки, память O(m).
- * Состояние:  prev[j] = d(i-1, j), cur[j] = d(i, j) — только текущая и предыдущая строка.
- * Переход:    cur[j] = min(prev[j]+1, cur[j-1]+1, prev[j-1] + (a[i-1]==b[j-1] ? 0 : 1)).
- * База:       prev[j] = j (строка i=0), cur[0] = i.
- */
 public class EditDistanceTwoRows extends EditDistance {
     @Override
     public String name() {
