@@ -1,8 +1,5 @@
-/** Общий интерфейс для трёх версий Edit Distance: эксперимент — один цикл. */
 public abstract class EditDistance {
-    /** Счётчик работы: вызовы рекурсии (A) или вычисленные клетки (B, C). */
     public long ops;
-    /** Сколько клеток памяти выделено под таблицу. */
     public long memCells;
 
     public abstract String name();
